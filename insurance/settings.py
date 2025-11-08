@@ -8,14 +8,16 @@ SECRET_KEY = 'django-insecure-djj*tdrdq266@5nrz(4^9o!16n0@1q*j7-ihaq(1c#9gh+l=3^
 
 DEBUG = False 
 
-ALLOWED_HOSTS = [
-    'insurance.onrender.com',  # ✅ Remove https://
-    '127.0.0.1',
-    'localhost',
-]
+ALLOWED_HOSTS = ['insurance-ouk8.onrender.com', 'localhost', '127.0.0.1']
+
+
+import os
+
+ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "localhost,127.0.0.1").split(",")
+
 
 CSRF_TRUSTED_ORIGINS = [
-    'https://insurance.onrender.com',
+    'https://insurance-ouk8.onrender.com',
     'http://52.55.71.119:8000'
 ]
 
