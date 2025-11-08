@@ -6,24 +6,23 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = 'django-insecure-djj*tdrdq266@5nrz(4^9o!16n0@1q*j7-ihaq(1c#9gh+l=3^'
 
-DEBUG = False 
+# Disable debug for production
+DEBUG = False
 
+# ✅ Allowed hosts (Render + local)
 ALLOWED_HOSTS = ['insurance-ouk8.onrender.com', 'localhost', '127.0.0.1']
 
-
-import os
-
-ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "localhost,127.0.0.1").split(",")
-
-
+# ✅ CSRF trusted origins
 CSRF_TRUSTED_ORIGINS = [
     'https://insurance-ouk8.onrender.com',
     'http://52.55.71.119:8000'
 ]
 
+# ✅ Security for production
 SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True
 
+# ✅ Static & Media settings
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [BASE_DIR / "static"]
 STATIC_ROOT = BASE_DIR / "staticfiles"
@@ -31,8 +30,10 @@ STATIC_ROOT = BASE_DIR / "staticfiles"
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / "media"
 
+# ✅ WhiteNoise for static file serving
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
+# ✅ Installed apps
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -43,9 +44,10 @@ INSTALLED_APPS = [
     'insuranceapp',
 ]
 
+# ✅ Middleware
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware', 
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -54,12 +56,13 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+# ✅ URL & Templates
 ROOT_URLCONF = 'insurance.urls'
 
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates'], 
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -72,8 +75,10 @@ TEMPLATES = [
     },
 ]
 
+# ✅ WSGI
 WSGI_APPLICATION = 'insurance.wsgi.application'
 
+# ✅ Database (SQLite for now)
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -81,14 +86,19 @@ DATABASES = {
     }
 }
 
+# ✅ Password validators
 AUTH_PASSWORD_VALIDATORS = [
     {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'},
     {'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator'},
     {'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator'},
     {'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator'},
 ]
+
+# ✅ Localization
 LANGUAGE_CODE = 'en-us'
 TIME_ZONE = 'UTC'
 USE_I18N = True
 USE_TZ = True
+
+# ✅ Default primary key field type
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
