@@ -2,7 +2,7 @@ from django.shortcuts import render,redirect
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login,logout
 from django.contrib import messages
-from .models import UserData
+from .models import UserData,custdata
 
 def frontpage(request):
     return render(request,'frontpage.html')
@@ -27,26 +27,25 @@ def shop(request):
 
 def signin(request):
     if request.method == 'POST':
-        username = request.POST.get('loginUsername')
+        email = request.POST.get('email')
         password = request.POST.get('loginPassword')
 
-        # Validate required fields
-        if not username or not password:
-            messages.error(request, "Both Username and Password are required!")
+        if not email or not password:
+            messages.error(request, "Both Email and Password are required!")
             return redirect('signin')
 
         # Authenticate
-        user = authenticate(request, username=username, password=password)
+        user = authenticate(request, username=email, password=password)
 
         if user is not None:
             login(request, user)
             messages.success(request, "Logged in successfully!")
             return redirect('home')  # Change to your home/dashboard URL name
         else:
-            messages.error(request, "Invalid Username or Password!")
+            messages.error(request, "Invalid Email or Password!")
             return redirect('signin')
     return render(request,'login.html')
-        
+
 def signout(request):
     logout(request)
     return redirect('signin')
@@ -63,14 +62,15 @@ def register(request):
             messages.error(request, "All fields are required!")
             return redirect('register')
         
-        if User.objects.filter(username=full_name).exists():
-            messages.error(request, "username is already registered!")
+        # Email as username
+        if User.objects.filter(username=email).exists():
+            messages.error(request, "Email is already registered!")
             return redirect('register')
-        
+
         if User.objects.filter(email=email).exists():
-            messages.error(request, "username is already registered!")
+            messages.error(request, "Email is already registered!")
             return redirect('register')
-        
+
         if len(phone) != 10:
             messages.error(request, "Invalid mobile number")
             return redirect('register')
@@ -81,15 +81,29 @@ def register(request):
 
         if password != confirm_password:
             messages.error(request, "Passwords do not match!")
-            return redirect('register')  
+            return redirect('register')
         
-        user = User.objects.create_user(username=full_name, email=email, password=password)
+        # Create user in auth_user
+        user = User.objects.create_user(
+            username=email,
+            email=email,
+            password=password,
+            first_name=full_name
+        )
         user.save()
-        
+
+        # Store in custdata
+        custdata.objects.create(
+            full_name=full_name,
+            email=email,
+            phone=phone,
+            password=password
+        )
+
         messages.success(request, "Your account has been created successfully!")
         return redirect('signin')
 
-    return render(request,'register.html')
+    return render(request, 'register.html')
 
 def userdata(request):
     if request.method == 'POST':

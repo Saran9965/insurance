@@ -150,7 +150,7 @@ body {
 /* Header Styles */
 .navbar {
     /* background: linear-gradient(135deg,#0078ff,#0ec3e7,#f4f6fc); */
-    background: linear-gradient(135deg,#005b4f,#0ec3e7,#f4f6fc);
+    background: linear-gradient(135deg,#0ec3e7,#f4f6fc);
     color: white;
     padding: 1rem 2rem;
     display: flex;

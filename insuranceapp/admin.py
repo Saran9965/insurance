@@ -1,3 +1,6 @@
 from django.contrib import admin
+from .models import UserData
+from .models import custdata
 
-# Register your models here.
+admin.site.register(custdata)
+admin.site.register(UserData)
