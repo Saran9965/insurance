@@ -3,8 +3,38 @@
     {% for message in messages %}
       <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
         {{ message }}
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
       </div>
     {% endfor %}
   </div>
 {% endif %}
+
+<style>
+  .alert-slide-out {
+    animation: slideFadeRight 0.9s forwards;
+}
+
+@keyframes slideFadeRight {
+    0% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+    100% {
+        opacity: 0;
+        transform: translateX(150px);
+    }
+}
+</style>
+
+<script>
+    setTimeout(function () {
+        document.querySelectorAll(".alert").forEach(function(alert) {
+            alert.classList.add("alert-slide-out");
+
+            // Remove element after animation ends
+            alert.addEventListener("animationend", function () {
+                alert.style.display = "none";
+            });
+        });
+    }, 2000);  // Hide after 2 seconds
+</script>

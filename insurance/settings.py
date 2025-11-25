@@ -1,6 +1,8 @@
 from pathlib import Path
 import os
 import sys
+from django.contrib.messages import constants as messages
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = 'django-insecure-djj*tdrdq266@5nrz(4^9o!16n0@1q*j7-ihaq(1c#9gh+l=3^'
@@ -24,6 +26,13 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / "media"
 
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+
+MESSAGE_TAGS = {
+    messages.ERROR: 'danger',
+    messages.WARNING: 'warning',
+    messages.SUCCESS: 'success',
+    messages.INFO: 'info',
+}
 
 INSTALLED_APPS = [
     'django.contrib.admin',
