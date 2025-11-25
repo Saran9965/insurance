@@ -5,11 +5,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = 'django-insecure-djj*tdrdq266@5nrz(4^9o!16n0@1q*j7-ihaq(1c#9gh+l=3^'
 DEBUG = False
-ALLOWED_HOSTS = ['insurance-ouk8.onrender.com', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['insurance-ouk8.onrender.com', 'localhost', '127.0.0.1','winsureconsulting.com','www.winsureconsulting.com']
 
 CSRF_TRUSTED_ORIGINS = [
     'https://insurance-ouk8.onrender.com',
-    'http://52.55.71.119:8000'
+    'http://52.55.71.119:8000',
+    'https://winsureconsulting.com','www.winsureconsulting.com','https://www.winsureconsulting.com'
 ]
 
 SESSION_COOKIE_SECURE = True
