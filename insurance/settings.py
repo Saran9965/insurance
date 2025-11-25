@@ -10,7 +10,7 @@ ALLOWED_HOSTS = ['insurance-ouk8.onrender.com', 'localhost', '127.0.0.1','winsur
 CSRF_TRUSTED_ORIGINS = [
     'https://insurance-ouk8.onrender.com',
     'http://52.55.71.119:8000',
-    'https://winsureconsulting.com','www.winsureconsulting.com','https://www.winsureconsulting.com'
+    'https://winsureconsulting.com','https://www.winsureconsulting.com'
 ]
 
 SESSION_COOKIE_SECURE = True

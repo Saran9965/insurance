@@ -2,7 +2,7 @@ from django.shortcuts import render,redirect
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login,logout
 from django.contrib import messages
-from .models import UserData,custdata
+from .models import UserData,custdata,Contact
 
 def frontpage(request):
     return render(request,'frontpage.html')
@@ -125,3 +125,22 @@ def userdata(request):
         return redirect('home')
 
     return render(request, 'userdata.html')
+
+
+def contact(request):
+    if request.method == "POST":
+        name = request.POST.get("name")
+        email = request.POST.get("email")
+        phone = request.POST.get("phone")
+        message = request.POST.get("message")
+        
+        Contact.objects.create(
+            name=name,
+            email=email,
+            phone=phone,
+            message=message
+        )
+        messages.success(request, "Your message has been sent successfully!")
+        return redirect("contact")
+
+    return render(request, "contact.html")
